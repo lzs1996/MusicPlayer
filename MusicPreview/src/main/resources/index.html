@@ -1,0 +1,379 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>music</title>
+    <link rel="stylesheet" href="http://cdn.bootcss.com/bootstrap/3.3.0/css/bootstrap.min.css">
+    <style type="text/css">
+        /*实现背景图片透明，内容不透明*/
+        #music {
+            width: 500px;
+            height: 500px;
+            border-radius: 10px;
+            margin: 20px auto;
+            position: relative;
+            background: url(./image/周杰伦-你听得到.jpg) no-repeat;
+            background-size: cover;
+            text-align: center;
+        }
+        #container {
+            position: absolute;
+            left: 0;
+            right: 0;
+            top: 0;
+            bottom: 0;
+            width: 500px;
+            height: 500px;
+            text-align: center;
+            background:rgba(255,255,255,0.6);
+        }
+        /*实现背景图片透明，内容不透明*/
+
+        #musicImg {
+            width: 280px;
+            height: 280px;
+            border-radius: 50%;
+        }
+        audio {
+            display: block;
+            margin: 20px auto;
+        }
+        #musicName {
+            padding-top: 10px;
+            line-height: 30px;
+            color: #cc1b1b;
+        }
+        /*.btn>button {
+            width: 60px;
+            height: 30px;
+            border-radius: 10px;
+            background: skyblue;
+        }*/
+        .button{
+            width: 60px;
+            height: 30px;
+            outline: none;
+        }
+        .lyric_area{/*歌词显示区域*/
+            height: 300px; /*歌词区域高度*/
+            overflow: hidden; /*隐藏超出部分*/
+            margin-top: 15px;
+        }
+        #lyric{/*歌词列表*/
+            line-height: 20px;/*行高，这个值要用在歌词滚动距离上*/
+            transition-duration: 600ms;/*滚动速度*/
+        }
+        #lyric .lineHigh{/*高亮行*/
+            color: red;
+        }
+        @-webkit-keyframes img {
+            from{-webkit-transform: rotate(0deg)}
+            to{-webkit-transform: rotate(360deg)}
+        }
+
+        .img{
+            animation: img 18s linear infinite;
+            -moz-animation: img 18s linear infinite;
+            -webkit-animation: img 18s linear infinite;
+            -o-animation: img 18s linear infinite;
+            animation-play-state:paused;
+        }
+
+        .running{
+            animation-play-state:running;
+        }
+
+        .stop{
+            animation-play-state:paused;
+        }
+    </style>
+</head>
+<body>
+<div id="music">
+    <div id="container">
+        <h3 id="musicName">周杰伦-你听得到</h3>
+        <img src="image/周杰伦-你听得到.jpg" id="musicImg" class="img">
+        <audio src="./music/周杰伦-你听得到.mp3" controls id="audio"></audio>
+        <!-- 歌词 -->
+        <div class="lyric_area">
+            <ul id="lyric"></ul>
+        </div>
+
+        <button type="button" id="play" class="btn btn-primary glyphicon glyphicon-play-circle button"></button>
+        <button type="button" id="pause" class="btn btn-primary glyphicon glyphicon-pause button"></button>
+        <button type="button" id="prev" class="btn btn-primary glyphicon glyphicon-backward button"></button>
+        <button type="button" id="next" class="btn btn-primary glyphicon glyphicon-forward button"></button>
+
+    </div>
+    <!--<div>
+        &lt;!&ndash; LRC歌词 &ndash;&gt;
+        &lt;!&ndash;<textarea id="lrc_content" cols="30" style="display: none">
+            [ti:你听得到]
+            [ar:周杰伦]
+            [al:叶惠美]
+            [by:0]
+            [offset:0]
+            [00:04.87]《叶惠美》
+            [00:09.81]词：曾郁婷
+            [00:14.75]曲：周杰伦
+            [00:18.17]有谁能比我知道
+            [00:22.70]你的温柔像羽毛
+            [00:26.93]秘密躺在我怀抱
+            [00:30.80]只有你能听得到
+            [00:34.86]还有没有人知道
+            [00:39.26]你的微笑像拥抱
+            [00:43.34]多想藏着你的好
+            [00:47.67]只有我看得到
+            [00:51.31]站在屋顶只对风说
+            [00:54.93]不想被左右
+            [00:58.77]本来讨厌下雨的天空
+            [01:02.85]直到听见有人说爱我
+            [01:07.77]坐在电影院的二楼
+            [01:11.47]看人群走过
+            [01:15.28]怎么那一天的我们
+            [01:19.47]都默默的微笑很久
+            [01:24.09]我想我是太过依赖
+            [01:28.80]在挂电话的刚才
+            [01:33.09]坚持学单纯的小孩
+            [01:37.22]静静看守这份爱
+            [01:41.26]知道不能太依赖
+            [01:45.31]怕你会把我宠坏
+            [01:49.07]你的香味一直徘徊
+            [01:54.55]我舍不得离开
+            [01:58.57]
+            [01:59.36]比我知道
+            [02:02.08]你的温柔像羽毛
+            [02:06.14]秘密躺在我怀抱
+            [02:10.30]只有你能听得到
+            [02:14.67]还有没有人知道
+            [02:18.54]你的微笑像拥抱
+            [02:22.41]多想藏着你的好
+            [02:26.60]只有我看得到
+            [02:30.15]坐在电影院的二楼
+            [02:33.90]看人群走过
+            [02:37.35]怎么那一天的我们
+            [02:41.40]都默默的微笑很久
+            [02:45.95]我想我是太过依赖
+            [02:50.54]在挂电话的刚才
+            [02:55.78]坚持学单纯的小孩
+            [02:59.83]静静看守这份爱
+            [03:03.88]知道不能太依赖
+            [03:07.75]怕你会把我宠坏
+            [03:11.80]你的香味一直徘徊
+            [03:16.39]我舍不得离开
+            [03:19.72]我想我是太过依赖
+            [03:23.59]在挂电话的刚才
+            [03:27.64]坚持学单纯的小孩
+            [03:32.37]我舍不得离开
+        </textarea>&ndash;&gt;
+    </div>-->
+</div>
+
+<script type="text/javascript">
+
+
+    var play = document.getElementById('play'),
+        pause = document.getElementById('pause'),
+        prev = document.getElementById('prev'),
+        next = document.getElementById('next'),
+        musicName = document.getElementById('musicName'),
+        musicImg = document.getElementById('musicImg'),
+        bgImage = document.getElementById('music');
+    /*var lrc = document.getElementById("lrc_content").innerHTML;*/
+    //添加歌词
+    var lrc="";
+    var lrcName = new Array();
+    var lrcName1;
+    lrcName = ['你听得到','爱在西元前'];
+    var music = new Array();
+    music = ['周杰伦-你听得到','周杰伦-爱在西元前'];
+    var len = music.length;
+    var num = 0;
+    lrcName1 = lrcName[num];
+    var oLRC = {
+        ti: "", //歌曲名
+        ar: "", //演唱者
+        al: "", //专辑名
+        by: "", //歌词制作人
+        offset: 0, //时间补偿值，单位毫秒，用于调整歌词整体位置
+        ms: [] //歌词数组{t:时间,c:歌词}
+    };
+
+    var lineNo=0//当前行
+    var C_pos= 6//C位
+    var offset= -20//滚动距离（应等于行高）
+    var audio = document.getElementById("audio");//播放器
+    var ul = document.getElementById("lyric"); //歌词容器列表
+
+    getLRC(lrcName1);
+
+    //高亮显示歌词当前行及文字滚动控制，行号为lineNo
+    function lineHigh() {
+        var lis = ul.getElementsByTagName("li");//歌词数组
+        if(lineNo>0){
+            lis[lineNo-1].removeAttribute("class");//去掉上一行的高亮样式
+        }
+        lis[lineNo].className = "lineHigh";//高亮显示当前行
+
+        //文字滚动
+        if(lineNo>C_pos){
+            ul.style.transform = "translateY("+(lineNo-C_pos)*offset+"px)"; //整体向上滚动一行高度
+        }
+    }
+
+    //滚回到开头，用于播放结束时
+    function goback() {
+        document.querySelector("#lyric .lineHigh").removeAttribute("class");
+        ul.style.transform = "translateY(0)";
+        lineNo = 0;
+
+    }
+
+    //监听播放器的timeupdate事件，实现文字与音频播放同步
+    audio.ontimeupdate = function () {
+        if(lineNo==oLRC.ms.length)
+            return;
+        var curTime = audio.currentTime; //播放器时间
+        if(parseFloat(oLRC.ms[lineNo].t)<=curTime){
+            lineHigh();//高亮当前行
+            lineNo++;
+        }
+    };
+
+    //监听播放器的ended事件，播放结束时回滚歌词
+    /*audio.onended = function () {
+        goback();
+    };*/
+
+    function getLRC(lrcName) {
+
+        lrc = "";
+        var ajax = new XMLHttpRequest();
+        ajax.open("get", "lrc/"+lrcName +".lrc",true);
+        ajax.send(null);
+        ajax.onreadystatechange = function () {
+            if (ajax.readyState == 4 && ajax.status == 200) {
+
+                lrc = ajax.responseText;
+                createLrcObj(lrc);
+                //console.log(lrc);
+            }
+        };
+
+    }
+
+    function createLrcObj(lrc) {
+
+        if(lrc.length==0) return;
+        var lrcs = lrc.split('\n');//用回车拆分成数组
+
+        for(var i in lrcs) {//遍历歌词数组
+            lrcs[i] = lrcs[i].replace(/(^\s*)|(\s*$)/g, ""); //去除前后空格
+            var t = lrcs[i].substring(lrcs[i].indexOf("[") + 1, lrcs[i].indexOf("]"));//取[]间的内容
+            var s = t.split(":");//分离:前后文字
+            if(isNaN(parseInt(s[0]))) { //不是数值
+                for (var i in oLRC) {
+                    if (i != "ms" && i == s[0].toLowerCase()) {
+                        oLRC[i] = s[1];
+                    }
+                }
+            }else { //是数值
+                var arr = lrcs[i].match(/\[(\d+:.+?)\]/g);//提取时间字段，可能有多个
+                var start = 0;
+                for(var k in arr){
+                    start += arr[k].length; //计算歌词位置
+                }
+                var content = lrcs[i].substring(start);//获取歌词内容
+
+                for (var k in arr){
+                    var t = arr[k].substring(1, arr[k].length-1);//取[]间的内容
+                    var s = t.split(":");//分离:前后文字
+                    oLRC.ms.push({//对象{t:时间,c:歌词}加入ms数组
+                        t: (parseFloat(s[0])*60+parseFloat(s[1])).toFixed(3),
+                        c: content
+                    });
+                }
+            }
+        }
+
+        oLRC.ms.sort(function (a, b) {//按时间顺序排序
+            return a.t-b.t;
+        });
+        showLRC();
+    }
+
+    function showLRC() {
+        var s="";
+        for(var i in oLRC.ms){//遍历ms数组，把歌词加入列表
+            s+='<li>'+oLRC.ms[i].c+'</li>';
+        }
+        document.getElementById("lyric").innerHTML = s;
+
+    }
+
+
+
+    // 播放
+    play.onclick = function(){
+        if(audio.paused){
+            audio.play();
+            document.getElementById("musicImg").classList.remove("stop");
+            document.getElementById("musicImg").classList.add("running");
+        }
+
+    }
+
+    function hasClass(element,className){
+        var aSameClassEle  = document.getElementsByClassName(className);
+        for (var i = 0;i < aSameClassEle .length;i++){
+            if(aSameClassEle[i] === element){
+                return true;
+            }
+        }
+    }
+
+    // 暂停
+    pause.onclick = function(){
+        if(audio.played){
+            audio.pause();
+            document.getElementById("musicImg").classList.remove("running");
+            document.getElementById("musicImg").classList.add("stop");
+        }
+    }
+
+    // 上一首
+    prev.onclick = function(){
+        num = (num + len - 1) % len;
+        audio.src = './music/' + music[num] + '.mp3';
+        lrcName1 = lrcName[num];
+        lineNo = 0;
+        oLRC.ms = [];
+        getLRC(lrcName1);
+        musicName.innerHTML = music[num];
+        bgImage.style.backgroundImage = 'url(./image/' + music[num] + '.jpg)';
+        musicImg.src = './image/' + music[num] + '.jpg';
+        play.onclick();
+    }
+
+    // 下一首
+    next.onclick = function(){
+        num = (num + 1) % len;
+        audio.src = './music/' + music[num] + '.mp3';
+        lrcName1 = lrcName[num];
+        lineNo = 0;
+        oLRC.ms = [];
+        getLRC(lrcName1);
+        musicName.innerHTML = music[num];
+        bgImage.style.backgroundImage = 'url(./image/' + music[num] + '.jpg)';
+        musicImg.src = './image/' + music[num] + '.jpg';
+        play.onclick();
+    }
+
+    // 自动切换下一首
+    audio.addEventListener('ended',function(){
+        goback();
+        next.onclick();
+    },false);
+</script>
+</body>
+</html>
